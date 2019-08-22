@@ -142,8 +142,6 @@ class Fraction:
             return Fraction(-self.inf_size,0)
         else:
             return Fraction(-self.numerator,self.denominator)
-    #Optional have fun and overload other operators such as 
-    # __neg__ for -f (negation)
 
     def __eq__(self, frac):
         """Two fractions are equal if they have the same value.
