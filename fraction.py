@@ -48,7 +48,7 @@ class Fraction:
             return f'{self.numerator}/{self.denominator}'
     def __add__(self, frac):
         """Return the sum of this fraction and another fraction or number as a new fraction if both infinity size = 0(int and float infinity size = 0)
-           if 1 of the fraction's infinity size isn't 0, return the one with bigger infinity value unless, it is the negative of the same infinity size
+           if 1 of the fraction's infinity size isn't 0, return the one with bigger absolute infinity value unless, if it is the negative of the same infinity size
            return 0
         """
         if isinstance(frac,Fraction):
@@ -91,10 +91,58 @@ class Fraction:
         else:
             raise ValueError('Fraction can only multiply with to int float or fractions')
         return Fraction(numerator,denominator)
-            
+
+    def __sub__(self, frac):
+        """Return the subtraction of the two fraction or number as a new fraction if both infinity size = 0(int and float infinity size = 0)
+           if 1 of the fraction's infinity size isn't 0, return the one with bigger absolute infinity value unless, if it is the same infinity
+           return 0
+        """
+        if isinstance(frac,Fraction):
+            if self.inf_size !=0 or frac.inf_size != 0:
+                if self.inf_size == frac.inf_size:
+                    return 0
+                elif abs(self.inf_size) > abs(frac.inf_size):
+                    return Fraction(self.inf_size,0)
+                else:
+                    return Fraction(-frac.inf_size,0)
+            numerator = ((self.numerator*frac.denominator)-(frac.numerator*self.denominator))
+            denominator = (self.denominator*frac.denominator)
+        elif type(frac) in(float,int):
+            if self.inf_size !=0:
+                return self
+            numerator = self.numerator - (frac*self.denominator)
+            denominator = self.denominator
+        else:
+            raise ValueError('Fraction can only add with to int float or fractions')
+        return Fraction(numerator,denominator)
+
+    def __gt__(self, frac):
+        """Two fractions are equal if they have the same value.
+           Fractions are stored in proper form so the internal representation
+           is unique (3/6 is same as 1/2).
+        """
+
+        if isinstance(frac,Fraction):
+            if (self.numerator ==0 and self.denominator==0) or (frac.numerator ==0 and frac.denominator==0):
+                return self.inf_size > frac.inf_size
+            if self.inf_size!=0 or frac.inf_size!= 0:
+                return self.inf_size > frac.inf_size
+            else:
+                return self.numerator*frac.denominator > frac.numerator*self.denominator
+        elif type(frac) in(float,int):
+            if self.numerator ==0 and self.denominator==0:
+                return 0 > frac
+            return self.numerator/self.denominator > frac
+        else:
+            raise ValueError('Fraction can only be compare to int float or fractions')
+
+    def __neg__(self):
+        """Return the negative of fraction"""
+        if self.numerator ==0 and self.denominator==0:
+            return Fraction(-self.inf_size,0)
+        else:
+            return Fraction(-self.numerator,self.denominator)
     #Optional have fun and overload other operators such as 
-    # __sub__ for f-g
-    # __gt__  for f > g
     # __neg__ for -f (negation)
 
     def __eq__(self, frac):
