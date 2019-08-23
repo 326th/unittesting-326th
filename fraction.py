@@ -1,3 +1,4 @@
+import math
 class Fraction:
     """A fraction with a numerator and denominator and arithmetic operations.
 
@@ -177,12 +178,10 @@ class Fraction:
         if self.denominator <0:
             self.denominator *= -1
             self.numerator *= -1
-        divider = 2
-        while divider <= abs(self.numerator) and divider <= abs(self.denominator):
-            if self.numerator%divider==0 and self.denominator%divider==0:
-                self.numerator /= divider
-                self.denominator /= divider
-                divider = 1
-            divider += 1
+        gcd = math.gcd(int(self.denominator),int(self.numerator))
+        if self.denominator != 0 and self.numerator!= 0:
+            if gcd > 0:
+                self.denominator /= gcd
+                self.numerator /= gcd
         self.numerator = int(self.numerator)
         self.denominator = int(self.denominator)
