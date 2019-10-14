@@ -198,4 +198,3 @@ class FractionTest(unittest.TestCase):
         self.assertEqual(Fraction(10,4), -Fraction(-10,4))
         self.assertEqual(Fraction(-8,5), -Fraction(8,5))
 
-unittest.main('fraction_test')
