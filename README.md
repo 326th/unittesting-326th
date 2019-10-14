@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/326th/unittesting_326th.svg?branch=master)](https://travis-ci.com/326th/unittesting-326th)
 ## Unit Testing Assignment
 
 by Thananan Eim-on.
