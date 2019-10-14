@@ -1,8 +1,6 @@
 ## Unit Testing Assignment
 
-by Thananan.
-reddit 
-
+by Thananan Eim-on.
 
 ## Test Cases for unique
 
